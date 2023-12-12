@@ -1,0 +1,405 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B457B8D52B28581E00DC6070 /* TurtlugeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8D42B28581E00DC6070 /* TurtlugeApp.swift */; };
+		B457B8D72B28581E00DC6070 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8D62B28581E00DC6070 /* ContentView.swift */; };
+		B457B8D92B28582000DC6070 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B457B8D82B28582000DC6070 /* Assets.xcassets */; };
+		B457B8DC2B28582000DC6070 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B457B8DB2B28582000DC6070 /* Preview Assets.xcassets */; };
+		B457B8E32B2858E900DC6070 /* StartPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8E22B2858E900DC6070 /* StartPageView.swift */; };
+		B457B8E52B28590A00DC6070 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8E42B28590A00DC6070 /* SettingsView.swift */; };
+		B457B8E82B28592C00DC6070 /* CreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8E72B28592C00DC6070 /* CreditsView.swift */; };
+		B457B8EA2B28594400DC6070 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8E92B28594400DC6070 /* GameView.swift */; };
+		B457B8EC2B28595700DC6070 /* PauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8EB2B28595700DC6070 /* PauseView.swift */; };
+		B457B8EE2B28596900DC6070 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8ED2B28596900DC6070 /* GameOverView.swift */; };
+		B457B8F02B28597F00DC6070 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8EF2B28597F00DC6070 /* Constants.swift */; };
+		B457B8F22B28599800DC6070 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8F12B28599800DC6070 /* GameScene.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B457B8D12B28581E00DC6070 /* Turtluge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Turtluge.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B457B8D42B28581E00DC6070 /* TurtlugeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurtlugeApp.swift; sourceTree = "<group>"; };
+		B457B8D62B28581E00DC6070 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B457B8D82B28582000DC6070 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B457B8DB2B28582000DC6070 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B457B8E22B2858E900DC6070 /* StartPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPageView.swift; sourceTree = "<group>"; };
+		B457B8E42B28590A00DC6070 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B457B8E72B28592C00DC6070 /* CreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsView.swift; sourceTree = "<group>"; };
+		B457B8E92B28594400DC6070 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		B457B8EB2B28595700DC6070 /* PauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseView.swift; sourceTree = "<group>"; };
+		B457B8ED2B28596900DC6070 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
+		B457B8EF2B28597F00DC6070 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B457B8F12B28599800DC6070 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B457B8CE2B28581E00DC6070 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B457B8C82B28581E00DC6070 = {
+			isa = PBXGroup;
+			children = (
+				B457B8D32B28581E00DC6070 /* Turtluge */,
+				B457B8D22B28581E00DC6070 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B457B8D22B28581E00DC6070 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B457B8D12B28581E00DC6070 /* Turtluge.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B457B8D32B28581E00DC6070 /* Turtluge */ = {
+			isa = PBXGroup;
+			children = (
+				B457B8D42B28581E00DC6070 /* TurtlugeApp.swift */,
+				B457B8D62B28581E00DC6070 /* ContentView.swift */,
+				B457B8D82B28582000DC6070 /* Assets.xcassets */,
+				B457B8F32B2859B300DC6070 /* Views */,
+				B457B8F42B2859C500DC6070 /* GameFiles */,
+				B457B8DA2B28582000DC6070 /* Preview Content */,
+			);
+			path = Turtluge;
+			sourceTree = "<group>";
+		};
+		B457B8DA2B28582000DC6070 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B457B8DB2B28582000DC6070 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B457B8F32B2859B300DC6070 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B457B8E22B2858E900DC6070 /* StartPageView.swift */,
+				B457B8E42B28590A00DC6070 /* SettingsView.swift */,
+				B457B8E72B28592C00DC6070 /* CreditsView.swift */,
+				B457B8E92B28594400DC6070 /* GameView.swift */,
+				B457B8EB2B28595700DC6070 /* PauseView.swift */,
+				B457B8ED2B28596900DC6070 /* GameOverView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B457B8F42B2859C500DC6070 /* GameFiles */ = {
+			isa = PBXGroup;
+			children = (
+				B457B8EF2B28597F00DC6070 /* Constants.swift */,
+				B457B8F12B28599800DC6070 /* GameScene.swift */,
+			);
+			path = GameFiles;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B457B8D02B28581E00DC6070 /* Turtluge */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B457B8DF2B28582000DC6070 /* Build configuration list for PBXNativeTarget "Turtluge" */;
+			buildPhases = (
+				B457B8CD2B28581E00DC6070 /* Sources */,
+				B457B8CE2B28581E00DC6070 /* Frameworks */,
+				B457B8CF2B28581E00DC6070 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Turtluge;
+			productName = Turtluge;
+			productReference = B457B8D12B28581E00DC6070 /* Turtluge.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B457B8C92B28581E00DC6070 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					B457B8D02B28581E00DC6070 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+				};
+			};
+			buildConfigurationList = B457B8CC2B28581E00DC6070 /* Build configuration list for PBXProject "Turtluge" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B457B8C82B28581E00DC6070;
+			productRefGroup = B457B8D22B28581E00DC6070 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B457B8D02B28581E00DC6070 /* Turtluge */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B457B8CF2B28581E00DC6070 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B457B8DC2B28582000DC6070 /* Preview Assets.xcassets in Resources */,
+				B457B8D92B28582000DC6070 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B457B8CD2B28581E00DC6070 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B457B8F22B28599800DC6070 /* GameScene.swift in Sources */,
+				B457B8E32B2858E900DC6070 /* StartPageView.swift in Sources */,
+				B457B8E52B28590A00DC6070 /* SettingsView.swift in Sources */,
+				B457B8D72B28581E00DC6070 /* ContentView.swift in Sources */,
+				B457B8E82B28592C00DC6070 /* CreditsView.swift in Sources */,
+				B457B8EA2B28594400DC6070 /* GameView.swift in Sources */,
+				B457B8D52B28581E00DC6070 /* TurtlugeApp.swift in Sources */,
+				B457B8EE2B28596900DC6070 /* GameOverView.swift in Sources */,
+				B457B8EC2B28595700DC6070 /* PauseView.swift in Sources */,
+				B457B8F02B28597F00DC6070 /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B457B8DD2B28582000DC6070 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B457B8DE2B28582000DC6070 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B457B8E02B28582000DC6070 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Turtluge/Preview Content\"";
+				DEVELOPMENT_TEAM = 4X56JBA2R7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.itsalessandroricci.Turtluge;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		B457B8E12B28582000DC6070 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Turtluge/Preview Content\"";
+				DEVELOPMENT_TEAM = 4X56JBA2R7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.itsalessandroricci.Turtluge;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B457B8CC2B28581E00DC6070 /* Build configuration list for PBXProject "Turtluge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B457B8DD2B28582000DC6070 /* Debug */,
+				B457B8DE2B28582000DC6070 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B457B8DF2B28582000DC6070 /* Build configuration list for PBXNativeTarget "Turtluge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B457B8E02B28582000DC6070 /* Debug */,
+				B457B8E12B28582000DC6070 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B457B8C92B28581E00DC6070 /* Project object */;
+}
