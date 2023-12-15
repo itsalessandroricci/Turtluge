@@ -12,6 +12,10 @@ import SwiftUI
 enum GameState {
     
     case startPage
-    case playing
+    case playingEasy
+    case playingMedium
+    case playingHard
+    case pausePage
     case gameOver
+    
 }

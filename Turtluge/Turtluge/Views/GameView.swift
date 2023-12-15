@@ -22,7 +22,10 @@ struct GameView: View {
             .navigationBarHidden(true)
             .ignoresSafeArea()
             
-            NavigationLink(destination: StartPageView(), label: { Text("Navigate")})
+            if game.isGameOver{
+//            NavigationLink(destination: GameOverView(), label: { Text("GAME-OVER")})
+                GameOverView()
+        }
         }
         .ignoresSafeArea()
     }

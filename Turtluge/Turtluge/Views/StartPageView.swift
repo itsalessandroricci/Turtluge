@@ -23,8 +23,8 @@ struct StartPageView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 50)
-                        .padding(.bottom, 280)
-                        .padding(.leading,690)
+                        .padding(.bottom, 250)
+                        .padding(.leading,750)
                 }
                 
                 VStack{
@@ -42,23 +42,23 @@ struct StartPageView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 230)
                         }
+                        NavigationLink(destination: GameView()) {
+                            Image("mediumButton")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 220)
+                        }
+                        NavigationLink(destination: GameView()) {
+                            Image("hardButton")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 230)
+                        }
                         
-                        Image("mediumButton")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 220)
-                        
-                        Image("hardButton")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 230)
-                        
-                    }
-                }
-                
-                
-                
-                
+                    } //HStack
+                   
+                } //VStack
+ 
             }//ZSTACK
             .frame(width: 844, height: 390, alignment: .center)
             .navigationBarHidden(true)

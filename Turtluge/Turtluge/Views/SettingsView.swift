@@ -12,6 +12,7 @@ struct SettingsView: View {
     @State private var isMuted = false
     
     var body: some View {
+        
         NavigationStack{
             
             ZStack{

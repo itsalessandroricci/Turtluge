@@ -11,18 +11,46 @@ struct GameOverView: View {
     var body: some View {
         
         ZStack{
-            Color.black.edgesIgnoringSafeArea(.all)
+            
+            Image("backgroundGame")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 900)
+                .ignoresSafeArea()
+            
+            
+            
             HStack{
                 Image("gameOver")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 650)
+                    .frame(width: 600)
+                    .padding(.bottom,200)
             }
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
             .ignoresSafeArea()
             
-            NavigationLink(destination: StartPageView(), label: { Text("Navigate")})
+            HStack{
+                
+                NavigationLink(destination:
+                                GameView()) {
+                    Image("restartButton")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 200)
+                }
+                
+                NavigationLink(destination: StartPageView()) {
+                    Image("homeButton")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 200)
+                }
+                
+            }
+            .padding(.top, 150)
+          
         }
         
         .ignoresSafeArea()
