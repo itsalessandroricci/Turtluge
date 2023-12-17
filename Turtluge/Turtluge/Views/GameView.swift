@@ -26,6 +26,12 @@ struct GameView: View {
 //            NavigationLink(destination: GameOverView(), label: { Text("GAME-OVER")})
                 GameOverView()
         }
+            
+            if game.isPausedG{
+                
+                PauseView()
+                
+            }
         }
         .ignoresSafeArea()
     }

@@ -19,21 +19,22 @@ struct PauseView: View {
                     .frame(width: 900)
                     .ignoresSafeArea()
                 
-                NavigationLink(destination: GameView()) {
-                    Image("arrow")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50)
-                        .padding(.bottom, 280)
-                        .padding(.trailing,740)
-                }
+//                NavigationLink(destination: GameView()) {
+//                    Image("arrow")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .frame(width: 50)
+//                        .padding(.bottom, 280)
+//                        .padding(.trailing,740)
+//                }
 
                 HStack{
-                    Image("restartButton")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 250)
-
+                    NavigationLink(destination: GameView()) {
+                        Image("restartButton")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 250)
+                    }
                     NavigationLink(destination: StartPageView()) {
                         Image("homeButton")
                             .resizable()
