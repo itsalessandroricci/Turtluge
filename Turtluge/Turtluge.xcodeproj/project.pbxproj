@@ -80,10 +80,7 @@
 				B457B8D82B28582000DC6070 /* Assets.xcassets */,
 				B457B8F32B2859B300DC6070 /* Views */,
 				B457B8F42B2859C500DC6070 /* GameFiles */,
-				B41678DB2B2F878600389AAB /* TurtlugeMusic.mp3 */,
-				B41678DD2B2F898C00389AAB /* GameOver.mp3 */,
-				B4C7B37F2B2FD8F200B09FCC /* canDestroyMusic.mp3 */,
-				B4C7B3812B2FE13700B09FCC /* turtleDamage.mp3 */,
+				B4F6E95A2B2FE90E007158BC /* SoundEffects */,
 				B457B8DA2B28582000DC6070 /* Preview Content */,
 			);
 			path = Turtluge;
@@ -117,6 +114,17 @@
 				B457B8F12B28599800DC6070 /* GameScene.swift */,
 			);
 			path = GameFiles;
+			sourceTree = "<group>";
+		};
+		B4F6E95A2B2FE90E007158BC /* SoundEffects */ = {
+			isa = PBXGroup;
+			children = (
+				B41678DB2B2F878600389AAB /* TurtlugeMusic.mp3 */,
+				B41678DD2B2F898C00389AAB /* GameOver.mp3 */,
+				B4C7B37F2B2FD8F200B09FCC /* canDestroyMusic.mp3 */,
+				B4C7B3812B2FE13700B09FCC /* turtleDamage.mp3 */,
+			);
+			path = SoundEffects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
