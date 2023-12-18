@@ -6,9 +6,15 @@
 //
 
 import SwiftUI
+import SpriteKit
+import AVFoundation
 
 struct GameOverView: View {
+    
+    @StateObject private var game = GameScene()
+        
     var body: some View {
+      
         
         ZStack{
             

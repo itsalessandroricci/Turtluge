@@ -49,7 +49,7 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate, AVAudioPla
     
     let pauseButton = SKSpriteNode(imageNamed: "pauseButton")
     
-    var scoreLabel: SKLabelNode!
+    @Published var scoreLabel: SKLabelNode!
     
     var livesLabel: SKLabelNode!
     
@@ -66,11 +66,7 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate, AVAudioPla
     @Published var isPausedG = false
     
     
-   
-    
-    
     override func didMove(to view: SKView) {
-        
         
         view.showsPhysics = true
         self.size = CGSize(width: 844, height: 390)
@@ -136,17 +132,6 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate, AVAudioPla
             damageAnimation.append(textureDamageAnimation.textureNamed(name))
         }
         
-        
-//        //redCanDestruction
-//        
-//        let textureRedCanDestruction = SKTextureAtlas(named: "redCanDestruction")
-//        for i in 1..<textureRedCanDestruction.textureNames.count {
-//            
-//            let name = "redExplodingCan" + String(i)
-//            redCanDestruction.append(textureRedCanDestruction.textureNamed(name))
-//        }
-        
-        
         moveBackGround(image: "sky1", y: 0, z: -5, duration: 90000, needPhysics: false, size: self.size)
         
         moveBackGround(image: "sea1", y: 0, z:-2, duration: 3, needPhysics: false, size: CGSize(width: self.size.width, height: 120))
@@ -160,52 +145,47 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate, AVAudioPla
         
         obstaclesSpawn()
         
-//        let spawnDelayRed = SKAction.wait(forDuration: TimeInterval.random(in: 1...2))
-//        run(spawnDelayRed) {
-//            self.spawnRedCanObstacles()
-//        }
-//        
-//        let spawnDelayYellow = SKAction.wait(forDuration: TimeInterval.random(in: 4...5))
-//        run(spawnDelayYellow) {
-//            self.spawnYellowCanObstacles()
-//        }
-//        
-//        let spawnDelayBlue = SKAction.wait(forDuration: TimeInterval.random(in: 8...9))
-//        run(spawnDelayBlue) {
-//            self.spawnBlueCanObstacles()
-//        }
-//        
-//        let spawnDelayPlastic = SKAction.wait(forDuration: TimeInterval.random(in: 11...12))
-//        run(spawnDelayPlastic) {
-//            self.spawnPlasticBagObstacles()
-//        }
-//        
-//        let spawnDelayCig = SKAction.wait(forDuration: TimeInterval.random(in: 14...18))
-//        run(spawnDelayCig) {
-//            self.spawnCigObstacles()
-//        }
-        
         setupScoreLabel()
         
         setupLivesLabel()
         
         loadBackgroundMusic()
         
+        preloadSounds()
+        
     }
     
+    func preloadSounds() {
+        loadBackgroundMusic()
+        preloadSoundEffect(name: "canDestroyMusic")
+        preloadSoundEffect(name: "turtleDamage")
+        preloadSoundEffect(name: "GameOver")
+    }
     
-    
+    func preloadSoundEffect(name: String) {
+        if let soundURL = Bundle.main.url(forResource: name, withExtension: "mp3") {
+            do {
+                let soundPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                soundPlayer.volume = 1.0
+                soundPlayer.prepareToPlay()
+            } catch {
+                print("Errore nel caricare il file audio: \(name)")
+            }
+        } else {
+            print("File audio non trovato: \(name)")
+        }
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
         
         if pauseButton.contains(touchLocation) {
-                isPaused()
+            isPaused()
             self.removeAllActions()
             backgroundMusicPlayer.stop()
             
-            }
+        }
         
         if touchLocation.y < frame.size.height / 2 {
             // Tap on the bottom half of the screen to go underground
@@ -227,7 +207,7 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate, AVAudioPla
         if let musicURL = Bundle.main.url(forResource: "TurtlugeMusic", withExtension: "mp3") {
             do {
                 backgroundMusicPlayer = try AVAudioPlayer(contentsOf: musicURL)
-                backgroundMusicPlayer.numberOfLoops = -1 
+                backgroundMusicPlayer.numberOfLoops = -1
                 backgroundMusicPlayer.volume = 0.5
                 backgroundMusicPlayer.play()
             } catch {
@@ -238,7 +218,7 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate, AVAudioPla
         }
     }
     
-func playGameOverSound() {
+    func playGameOverSound() {
         if let gameOverSoundURL = Bundle.main.url(forResource: "GameOver", withExtension: "mp3") {
             do {
                 let gameOverSoundPlayer = try AVAudioPlayer(contentsOf: gameOverSoundURL)
@@ -253,9 +233,8 @@ func playGameOverSound() {
     }
     
     func playCanDestroySound() {
-        // Interrompi la musica di sottofondo
-        backgroundMusicPlayer.pause()
-
+        //backgroundMusicPlayer.pause()
+        
         if let canDestroySoundURL = Bundle.main.url(forResource: "canDestroyMusic", withExtension: "mp3") {
             do {
                 canDestroySoundPlayer = try AVAudioPlayer(contentsOf: canDestroySoundURL)
@@ -270,12 +249,10 @@ func playGameOverSound() {
             }
         } else {
             print("File audio di distruzione della lattina non trovato.")
-           
+            
             backgroundMusicPlayer.play()
         }
     }
-
-
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if player == canDestroySoundPlayer {
@@ -283,46 +260,46 @@ func playGameOverSound() {
             backgroundMusicPlayer.play()
         }
         if player == DamageSoundPlayer {
-            // Riprendi la musica di sottofondo dopo l'effetto di danneggiamento
             backgroundMusicPlayer.play()
+        }
+        if isGameOver{
+            
+            backgroundMusicPlayer.stop()
         }
     }
     
     func playDamageSound() {
-            backgroundMusicPlayer.pause()
-
-            if let DamageSoundSoundURL = Bundle.main.url(forResource: "turtleDamage", withExtension: "mp3") {
-                do {
-                    DamageSoundPlayer = try AVAudioPlayer(contentsOf: DamageSoundSoundURL)
-                    DamageSoundPlayer?.volume = 1.0
-                    DamageSoundPlayer?.rate = 0.5
-                    DamageSoundPlayer?.delegate = self
-                    DamageSoundPlayer?.play()
-                } catch let error {
-                    print("Errore nella riproduzione dell'audio di danneggiamento: \(error.localizedDescription)")
-                    backgroundMusicPlayer.play()
-                }
-            } else {
-                print("File audio di danneggiamento non trovato.")
+        //backgroundMusicPlayer.pause()
+        if let DamageSoundSoundURL = Bundle.main.url(forResource: "turtleDamage", withExtension: "mp3") {
+            do {
+                DamageSoundPlayer = try AVAudioPlayer(contentsOf: DamageSoundSoundURL)
+                DamageSoundPlayer?.volume = 1.0
+                DamageSoundPlayer?.rate = 0.5
+                DamageSoundPlayer?.delegate = self
+                DamageSoundPlayer?.play()
+            } catch let error {
+                print("Errore nella riproduzione dell'audio di danneggiamento: \(error.localizedDescription)")
                 backgroundMusicPlayer.play()
             }
+        } else {
+            print("File audio di danneggiamento non trovato.")
+            backgroundMusicPlayer.play()
         }
-
-
+    }
     
     func goUnderground() {
         self.isUnderGround = true
         player.removeAllActions()
         player.run(SKAction.sequence([
             SKAction.group([
-            
-            SKAction.animate(with: playerAnimationUnderGround, timePerFrame: 0.1),
-            SKAction.wait(forDuration: 1.0),
-            SKAction.scale(to: 0.25, duration: 0.0),
-            SKAction.scaleX(by: 1, y: 0.90, duration: 0.0)
+                
+                SKAction.animate(with: playerAnimationUnderGround, timePerFrame: 0.1),
+                SKAction.wait(forDuration: 1.0),
+                SKAction.scale(to: 0.25, duration: 0.0),
+                SKAction.scaleX(by: 1, y: 0.90, duration: 0.0)
             ]),
             SKAction.scale(to: 0.35, duration: 0.0),
-        /*    SKAction.animate(with: playerAnimationUnderGround/*.reversed()*/, timePerFrame: 0.1)*/
+            /*    SKAction.animate(with: playerAnimationUnderGround/*.reversed()*/, timePerFrame: 0.1)*/
             SKAction.repeatForever(SKAction.animate(with: playerAnimationWalking, timePerFrame: 0.10))
         ]))
         
@@ -373,7 +350,6 @@ func playGameOverSound() {
         //RED CAN CONTACT
         
         if (nodeA == player && nodeB.name == "redCan") || (nodeB == player && nodeA.name == "redCan") {
-                // Check if either nodeA or nodeB is the player, and the other is a redCan
             if self.isRolling {
                 nodeB.run(SKAction.sequence([
                     SKAction.group([
@@ -393,29 +369,29 @@ func playGameOverSound() {
             
             
             else {
-                    self.lives -= 1
-                    livesLabel.text = "Lives: \(self.lives)"
+                self.lives -= 1
+                livesLabel.text = "Lives: \(self.lives)"
                 
-                    playDamageSound()
-                    startDamageAnimation()
+                nodeB.removeFromParent()
+                playDamageSound()
+                startDamageAnimation()
                 
-                    if lives <= 0 {
-                        print("GAMEOVER")
-                        
-                        playGameOverSound()
-                        gameOver()
-                    }
+                if lives <= 0 {
+                    print("GAMEOVER")
                     
-                    print("RedCan hit player. Remaining Lives: \(lives)")
+                    playGameOverSound()
+                    gameOver()
+                }
+                
+                print("RedCan hit player. Remaining Lives: \(lives)")
                 
             }
-                playerHit(node: nodeB)
-            }
+            playerHit(node: nodeB)
+        }
         
         //YELLOW CAN CONTACT
         
         if (nodeA == player && nodeB.name == "yellowCan") || (nodeB == player && nodeA.name == "yellowCan") {
-                // Check if either nodeA or nodeB is the player, and the other is a redCan
             if self.isRolling {
                 nodeB.run(SKAction.sequence([
                     SKAction.group([
@@ -432,93 +408,92 @@ func playGameOverSound() {
             }
             
             else {
-                    self.lives -= 1
-                    livesLabel.text = "Lives: \(self.lives)"
-                    playDamageSound()
-                    startDamageAnimation()
-                    if lives <= 0 {
-                        print("GAMEOVER")
-                        
-                        playGameOverSound()
-                        gameOver()
-                    }
+                self.lives -= 1
+                livesLabel.text = "Lives: \(self.lives)"
+                nodeB.removeFromParent()
+                playDamageSound()
+                startDamageAnimation()
+                if lives <= 0 {
+                    print("GAMEOVER")
                     
-                    print("YellowCan hit player. Remaining Lives: \(lives)")
+                    playGameOverSound()
+                    gameOver()
+                }
+                
+                print("YellowCan hit player. Remaining Lives: \(lives)")
                 
             }
-                playerHit(node: nodeB)
-            }
+            playerHit(node: nodeB)
+        }
         
         
         //BLUE CAN CONTACT
-        if (nodeA == player && nodeB.name == "blueCan") || (nodeB == player && nodeA.name == "blueCan") {
-                // Check if either nodeA or nodeB is the player, and the other is a redCan
-            if self.isRolling {
-                nodeB.run(SKAction.sequence([
-                    SKAction.group([
-                        SKAction.animate(with: blueCanDestruction, timePerFrame: 0.25),
-                        SKAction.wait(forDuration: 1.0),
-                        SKAction.scale(to: 0.45, duration: 0.05),
-                        SKAction.scaleX(by: 1, y: 0.90, duration: 0.0)
-                    ])
-                ]))
-                self.score += 1
-                scoreLabel.text = "Score: \(score)"
-                print("+1 Point!! Congrats. The update score:\(score)")
-                playCanDestroySound()
-            }
+        if (nodeA == player && nodeB.name == "blueCan") || (nodeB == player && nodeA.name == "blueCan") {            if self.isRolling {
+            nodeB.run(SKAction.sequence([
+                SKAction.group([
+                    SKAction.animate(with: blueCanDestruction, timePerFrame: 0.25),
+                    SKAction.wait(forDuration: 1.0),
+                    SKAction.scale(to: 0.45, duration: 0.05),
+                    SKAction.scaleX(by: 1, y: 0.90, duration: 0.0)
+                ])
+            ]))
+            self.score += 1
+            scoreLabel.text = "Score: \(score)"
+            print("+1 Point!! Congrats. The update score:\(score)")
+            playCanDestroySound()
+        }
             
             else {
-                    self.lives -= 1
-                    livesLabel.text = "Lives: \(self.lives)"
-                    playDamageSound()
-                    startDamageAnimation()
-                    if lives <= 0 {
-                        print("GAMEOVER")
-                        
-                        playGameOverSound()
-                        gameOver()
-                    }
+                self.lives -= 1
+                livesLabel.text = "Lives: \(self.lives)"
+                nodeB.removeFromParent()
+                playDamageSound()
+                startDamageAnimation()
+                if lives <= 0 {
+                    print("GAMEOVER")
                     
-                    print("BlueCan hit player. Remaining Lives: \(lives)")
+                    playGameOverSound()
+                    gameOver()
+                }
+                
+                print("BlueCan hit player. Remaining Lives: \(lives)")
                 
             }
-                playerHit(node: nodeB)
-            }
+            playerHit(node: nodeB)
+        }
         
         //PLASTICBAG CONTACT
         if (nodeA == player && nodeB.name == "plasticBag") || (nodeB == player && nodeA.name == "plasticBag") {
-                // Check if either nodeA or nodeB is the player, and the other is a redCan
             if self.isUnderGround {
                 
                 self.score += 1
                 scoreLabel.text = "Score: \(score)"
                 print("+1 Point!! Congrats. The update score:\(score)")
-            
+                
                 
             }
             
             else {
-                    self.lives -= 1
-                    livesLabel.text = "Lives: \(self.lives)"
-                    playDamageSound()
-                    startDamageAnimation()
-                    if lives <= 0 {
-                        print("GAMEOVER")
-                        
-                        playGameOverSound()
-                        gameOver()
-                    }
+                self.lives -= 1
+                livesLabel.text = "Lives: \(self.lives)"
+                nodeB.removeFromParent()
+                playDamageSound()
+                startDamageAnimation()
+                if lives <= 0 {
+                    print("GAMEOVER")
                     
-                    print("PlasticBag hit player. Remaining Lives: \(lives)")
+                    playGameOverSound()
+                    gameOver()
+                }
+                
+                print("PlasticBag hit player. Remaining Lives: \(lives)")
                 
             }
-                playerHit(node: nodeB)
-            }
+            playerHit(node: nodeB)
+        }
         
         //CIG CONTACT
         if (nodeA == player && nodeB.name == "cig") || (nodeB == player && nodeA.name == "cig") {
-                // Check if either nodeA or nodeB is the player, and the other is a redCan
             if self.isUnderGround {
                 
                 self.score += 1
@@ -528,22 +503,23 @@ func playGameOverSound() {
             }
             
             else {
-                    self.lives -= 1
-                    livesLabel.text = "Lives: \(self.lives)"
-                    playDamageSound()
-                    startDamageAnimation()
-                    if lives <= 0 {
-                        print("GAMEOVER")
-                        
-                        playGameOverSound()
-                        gameOver()
-                    }
+                self.lives -= 1
+                livesLabel.text = "Lives: \(self.lives)"
+                nodeB.removeFromParent()
+                playDamageSound()
+                startDamageAnimation()
+                if lives <= 0 {
+                    print("GAMEOVER")
                     
-                    print("Cig hit player. Remaining Lives: \(lives)")
+                    playGameOverSound()
+                    gameOver()
+                }
+                
+                print("Cig hit player. Remaining Lives: \(lives)")
                 
             }
-                playerHit(node: nodeB)
-            }
+            playerHit(node: nodeB)
+        }
         
         
         if nodeB == player {
@@ -604,9 +580,9 @@ func playGameOverSound() {
         addChild(livesLabel)
     }
     
-
+    
     func obstaclesSpawn() {
-     
+        
         let obstaclesData = [
             ("redCan", "redCan"),
             ("yellowCan", "yellowCan"),
@@ -614,13 +590,13 @@ func playGameOverSound() {
             ("plasticBag1", "plasticBag"),
             ("cig1", "cig")
         ]
-
-       
+        
+        
         let randomObstacleData = obstaclesData.randomElement()!
-
-       
+        
+        
         let (obstacleType, obstacleName) = randomObstacleData
-
+        
         
         let obstacle = SKSpriteNode(imageNamed: obstacleType)
         obstacle.position = CGPoint(x: frame.maxX, y: 150)
@@ -632,7 +608,7 @@ func playGameOverSound() {
         obstacle.name = obstacleName
         obstacle.zPosition = 3
         obstacle.setScale(0.30)
-
+        
         if obstacleName == "plasticBag" {
             obstacle.run(SKAction.repeatForever(SKAction.animate(with: plasticBagAnimation, timePerFrame: 0.20)))
         }
@@ -641,15 +617,11 @@ func playGameOverSound() {
             obstacle.run(SKAction.repeatForever(SKAction.animate(with: cigAnimation, timePerFrame: 0.15)))
         }
         
-        
-       
         addChild(obstacle)
-
         
         let moveAction = SKAction.moveBy(x: -frame.size.width, y: 0, duration: TimeInterval(4.2 / gameSpeed))
         let removeAction = SKAction.removeFromParent()
         obstacle.run(SKAction.sequence([moveAction, removeAction]))
-
         
         let spawnDelay = SKAction.wait(forDuration: TimeInterval.random(in: 2...6))
         run(spawnDelay) {
@@ -703,6 +675,7 @@ func playGameOverSound() {
         
     }
     
+    
     func playerHit(node: SKNode){
         print("Player hit something with name: \(node.name ?? "unknown")")
         if node.name == "redCan" {
@@ -713,12 +686,11 @@ func playGameOverSound() {
                         lives -= 1
                         print("Player lost a life. HIIITRemaining Lives: \(lives)")
                         if lives <= 0 {
-                                         gameOver()
-                                    }
-                        
+                            gameOver()
+                        }
                     }
                     
-                   node.removeFromParent()
+                    node.removeFromParent()
                     
                 }
             }
@@ -726,13 +698,13 @@ func playGameOverSound() {
     }
     
     override func update(_ currentTime: TimeInterval) {
-    
+        
         for obstacleRedCan in obstacles {
             if player.frame.intersects(obstacleRedCan.frame) {
                 if player.action(forKey: "Rotate") == nil { // La tartaruga non è sottoterra
                     lives -= 1
                     if lives <= 0 {
-//                        gameOver()
+                        //                        gameOver()
                     }
                 }
                 obstacleRedCan.removeFromParent()
@@ -743,11 +715,10 @@ func playGameOverSound() {
     func isPaused() {
         
         isPausedG = true
+        isGameOver = true
         
     }
     func gameOver() {
-        // Visualizza la schermata di Game Over con il punteggio e le opzioni di riavvio
-        
         
         
         backgroundMusicPlayer.stop()
@@ -763,14 +734,9 @@ func playGameOverSound() {
         gameOverLabel.zPosition = 10
         gameOverLabel.position = CGPoint(x: size.width / 2, y: size.height / 2)
         
-        
         isGameOver = true
         
-        
         print("gameover")
-        
-        
-        
     }
     
     
@@ -780,11 +746,10 @@ func playGameOverSound() {
 class GameOverScene: SKScene {
     init(size: CGSize, score: Int) {
         super.init(size: size)
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
+

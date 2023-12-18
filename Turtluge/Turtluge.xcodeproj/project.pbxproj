@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B41678DC2B2F878600389AAB /* TurtlugeMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B41678DB2B2F878600389AAB /* TurtlugeMusic.mp3 */; };
 		B41678DE2B2F898C00389AAB /* GameOver.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B41678DD2B2F898C00389AAB /* GameOver.mp3 */; };
 		B457B8D52B28581E00DC6070 /* TurtlugeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8D42B28581E00DC6070 /* TurtlugeApp.swift */; };
 		B457B8D72B28581E00DC6070 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8D62B28581E00DC6070 /* ContentView.swift */; };
@@ -23,10 +22,11 @@
 		B457B8F22B28599800DC6070 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8F12B28599800DC6070 /* GameScene.swift */; };
 		B4C7B3802B2FD8F200B09FCC /* canDestroyMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B4C7B37F2B2FD8F200B09FCC /* canDestroyMusic.mp3 */; };
 		B4C7B3822B2FE13700B09FCC /* turtleDamage.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B4C7B3812B2FE13700B09FCC /* turtleDamage.mp3 */; };
+		B4D30EF82B303A29002EF188 /* InstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D30EF72B303A29002EF188 /* InstructionsView.swift */; };
+		B4D30EFA2B30477B002EF188 /* TurtlugeMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B4D30EF92B30477B002EF188 /* TurtlugeMusic.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B41678DB2B2F878600389AAB /* TurtlugeMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = TurtlugeMusic.mp3; sourceTree = "<group>"; };
 		B41678DD2B2F898C00389AAB /* GameOver.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = GameOver.mp3; sourceTree = "<group>"; };
 		B457B8D12B28581E00DC6070 /* Turtluge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Turtluge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B457B8D42B28581E00DC6070 /* TurtlugeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurtlugeApp.swift; sourceTree = "<group>"; };
@@ -43,6 +43,8 @@
 		B457B8F12B28599800DC6070 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = Turtluge/GameFiles/GameScene.swift; sourceTree = SOURCE_ROOT; };
 		B4C7B37F2B2FD8F200B09FCC /* canDestroyMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = canDestroyMusic.mp3; sourceTree = "<group>"; };
 		B4C7B3812B2FE13700B09FCC /* turtleDamage.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = turtleDamage.mp3; sourceTree = "<group>"; };
+		B4D30EF72B303A29002EF188 /* InstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsView.swift; sourceTree = "<group>"; };
+		B4D30EF92B30477B002EF188 /* TurtlugeMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = TurtlugeMusic.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				B457B8E92B28594400DC6070 /* GameView.swift */,
 				B457B8EB2B28595700DC6070 /* PauseView.swift */,
 				B457B8ED2B28596900DC6070 /* GameOverView.swift */,
+				B4D30EF72B303A29002EF188 /* InstructionsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -119,7 +122,7 @@
 		B4F6E95A2B2FE90E007158BC /* SoundEffects */ = {
 			isa = PBXGroup;
 			children = (
-				B41678DB2B2F878600389AAB /* TurtlugeMusic.mp3 */,
+				B4D30EF92B30477B002EF188 /* TurtlugeMusic.mp3 */,
 				B41678DD2B2F898C00389AAB /* GameOver.mp3 */,
 				B4C7B37F2B2FD8F200B09FCC /* canDestroyMusic.mp3 */,
 				B4C7B3812B2FE13700B09FCC /* turtleDamage.mp3 */,
@@ -189,7 +192,7 @@
 				B4C7B3802B2FD8F200B09FCC /* canDestroyMusic.mp3 in Resources */,
 				B457B8DC2B28582000DC6070 /* Preview Assets.xcassets in Resources */,
 				B4C7B3822B2FE13700B09FCC /* turtleDamage.mp3 in Resources */,
-				B41678DC2B2F878600389AAB /* TurtlugeMusic.mp3 in Resources */,
+				B4D30EFA2B30477B002EF188 /* TurtlugeMusic.mp3 in Resources */,
 				B457B8D92B28582000DC6070 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4D30EF82B303A29002EF188 /* InstructionsView.swift in Sources */,
 				B457B8F22B28599800DC6070 /* GameScene.swift in Sources */,
 				B457B8E32B2858E900DC6070 /* StartPageView.swift in Sources */,
 				B457B8E52B28590A00DC6070 /* SettingsView.swift in Sources */,

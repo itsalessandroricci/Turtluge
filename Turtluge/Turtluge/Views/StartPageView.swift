@@ -36,19 +36,19 @@ struct StartPageView: View {
                     
                     HStack{
                         
-                        NavigationLink(destination: GameView()) {
+                        NavigationLink(destination: InstructionsView()) {
                             Image("easyButton")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 230)
                         }
-                        NavigationLink(destination: GameView()) {
+                        NavigationLink(destination: InstructionsView()) {
                             Image("mediumButton")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 220)
                         }
-                        NavigationLink(destination: GameView()) {
+                        NavigationLink(destination: InstructionsView()) {
                             Image("hardButton")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
