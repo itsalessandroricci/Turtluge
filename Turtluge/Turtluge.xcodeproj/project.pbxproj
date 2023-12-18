@@ -21,6 +21,8 @@
 		B457B8EE2B28596900DC6070 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8ED2B28596900DC6070 /* GameOverView.swift */; };
 		B457B8F02B28597F00DC6070 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8EF2B28597F00DC6070 /* Constants.swift */; };
 		B457B8F22B28599800DC6070 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B457B8F12B28599800DC6070 /* GameScene.swift */; };
+		B4C7B3802B2FD8F200B09FCC /* canDestroyMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B4C7B37F2B2FD8F200B09FCC /* canDestroyMusic.mp3 */; };
+		B4C7B3822B2FE13700B09FCC /* turtleDamage.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B4C7B3812B2FE13700B09FCC /* turtleDamage.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		B457B8ED2B28596900DC6070 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
 		B457B8EF2B28597F00DC6070 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B457B8F12B28599800DC6070 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = Turtluge/GameFiles/GameScene.swift; sourceTree = SOURCE_ROOT; };
+		B4C7B37F2B2FD8F200B09FCC /* canDestroyMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = canDestroyMusic.mp3; sourceTree = "<group>"; };
+		B4C7B3812B2FE13700B09FCC /* turtleDamage.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = turtleDamage.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 				B457B8F42B2859C500DC6070 /* GameFiles */,
 				B41678DB2B2F878600389AAB /* TurtlugeMusic.mp3 */,
 				B41678DD2B2F898C00389AAB /* GameOver.mp3 */,
+				B4C7B37F2B2FD8F200B09FCC /* canDestroyMusic.mp3 */,
+				B4C7B3812B2FE13700B09FCC /* turtleDamage.mp3 */,
 				B457B8DA2B28582000DC6070 /* Preview Content */,
 			);
 			path = Turtluge;
@@ -172,7 +178,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B41678DE2B2F898C00389AAB /* GameOver.mp3 in Resources */,
+				B4C7B3802B2FD8F200B09FCC /* canDestroyMusic.mp3 in Resources */,
 				B457B8DC2B28582000DC6070 /* Preview Assets.xcassets in Resources */,
+				B4C7B3822B2FE13700B09FCC /* turtleDamage.mp3 in Resources */,
 				B41678DC2B2F878600389AAB /* TurtlugeMusic.mp3 in Resources */,
 				B457B8D92B28582000DC6070 /* Assets.xcassets in Resources */,
 			);

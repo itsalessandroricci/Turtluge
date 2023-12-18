@@ -11,9 +11,13 @@ import SwiftUI
 import AVFoundation
 
 
-class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
+class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate, AVAudioPlayerDelegate{
     
     var backgroundMusicPlayer: AVAudioPlayer!
+    
+    var canDestroySoundPlayer: AVAudioPlayer?
+    
+    var DamageSoundPlayer: AVAudioPlayer?
     
     let player = SKSpriteNode(imageNamed: "walkingBlue0")
     
@@ -32,6 +36,8 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
     var plasticBagAnimation = [SKTexture]()
     
     var cigAnimation = [SKTexture]()
+    
+    var damageAnimation = [SKTexture]()
     
     var touchesBegan = false
     
@@ -121,6 +127,16 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
             playerAnimationUnderGround.append(textureUnderGround.textureNamed(name))
         }
         
+        // DamageAnimation
+        
+        let textureDamageAnimation = SKTextureAtlas(named: "DamageAnimation")
+        for i in 1..<textureDamageAnimation.textureNames.count {
+            
+            let name = "DamageAnimation" + String(i)
+            damageAnimation.append(textureDamageAnimation.textureNamed(name))
+        }
+        
+        
 //        //redCanDestruction
 //        
 //        let textureRedCanDestruction = SKTextureAtlas(named: "redCanDestruction")
@@ -142,40 +158,38 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
         
         player.run(SKAction.repeatForever(SKAction.animate(with: playerAnimationWalking, timePerFrame: 0.10)))
         
+        obstaclesSpawn()
         
-        let spawnDelayRed = SKAction.wait(forDuration: TimeInterval.random(in: 1...2))
-        run(spawnDelayRed) {
-            self.spawnRedCanObstacles()
-        }
-        
-        let spawnDelayYellow = SKAction.wait(forDuration: TimeInterval.random(in: 4...5))
-        run(spawnDelayYellow) {
-            self.spawnYellowCanObstacles()
-        }
-        
-        let spawnDelayBlue = SKAction.wait(forDuration: TimeInterval.random(in: 8...9))
-        run(spawnDelayBlue) {
-            self.spawnBlueCanObstacles()
-        }
-        
-        let spawnDelayPlastic = SKAction.wait(forDuration: TimeInterval.random(in: 11...12))
-        run(spawnDelayPlastic) {
-            self.spawnPlasticBagObstacles()
-        }
-        
-        let spawnDelayCig = SKAction.wait(forDuration: TimeInterval.random(in: 14...18))
-        run(spawnDelayCig) {
-            self.spawnCigObstacles()
-        }
+//        let spawnDelayRed = SKAction.wait(forDuration: TimeInterval.random(in: 1...2))
+//        run(spawnDelayRed) {
+//            self.spawnRedCanObstacles()
+//        }
+//        
+//        let spawnDelayYellow = SKAction.wait(forDuration: TimeInterval.random(in: 4...5))
+//        run(spawnDelayYellow) {
+//            self.spawnYellowCanObstacles()
+//        }
+//        
+//        let spawnDelayBlue = SKAction.wait(forDuration: TimeInterval.random(in: 8...9))
+//        run(spawnDelayBlue) {
+//            self.spawnBlueCanObstacles()
+//        }
+//        
+//        let spawnDelayPlastic = SKAction.wait(forDuration: TimeInterval.random(in: 11...12))
+//        run(spawnDelayPlastic) {
+//            self.spawnPlasticBagObstacles()
+//        }
+//        
+//        let spawnDelayCig = SKAction.wait(forDuration: TimeInterval.random(in: 14...18))
+//        run(spawnDelayCig) {
+//            self.spawnCigObstacles()
+//        }
         
         setupScoreLabel()
         
         setupLivesLabel()
         
         loadBackgroundMusic()
-        
-        playGameOverSound()
-
         
     }
     
@@ -224,7 +238,7 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
         }
     }
     
-    func playGameOverSound() {
+func playGameOverSound() {
         if let gameOverSoundURL = Bundle.main.url(forResource: "GameOver", withExtension: "mp3") {
             do {
                 let gameOverSoundPlayer = try AVAudioPlayer(contentsOf: gameOverSoundURL)
@@ -239,18 +253,62 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
     }
     
     func playCanDestroySound() {
+        // Interrompi la musica di sottofondo
+        backgroundMusicPlayer.pause()
+
         if let canDestroySoundURL = Bundle.main.url(forResource: "canDestroyMusic", withExtension: "mp3") {
             do {
-                let canDestroySoundPlayer = try AVAudioPlayer(contentsOf: canDestroySoundURL)
-                canDestroySoundPlayer.volume = 1.0  // Imposta il volume desiderato
-                canDestroySoundPlayer.play()
-            } catch {
-                print("Errore nel caricare il file audio di distruzione della redCan.")
+                canDestroySoundPlayer = try AVAudioPlayer(contentsOf: canDestroySoundURL)
+                canDestroySoundPlayer?.volume = 1.0
+                canDestroySoundPlayer?.rate = 0.5
+                canDestroySoundPlayer?.delegate = self
+                canDestroySoundPlayer?.play()
+            } catch let error {
+                print("Errore nella riproduzione dell'audio di distruzione della lattina: \(error.localizedDescription)")
+                
+                backgroundMusicPlayer.play()
             }
         } else {
-            print("File audio di distruzione della redCan non trovato.")
+            print("File audio di distruzione della lattina non trovato.")
+           
+            backgroundMusicPlayer.play()
         }
     }
+
+
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if player == canDestroySoundPlayer {
+            
+            backgroundMusicPlayer.play()
+        }
+        if player == DamageSoundPlayer {
+            // Riprendi la musica di sottofondo dopo l'effetto di danneggiamento
+            backgroundMusicPlayer.play()
+        }
+    }
+    
+    func playDamageSound() {
+            backgroundMusicPlayer.pause()
+
+            if let DamageSoundSoundURL = Bundle.main.url(forResource: "turtleDamage", withExtension: "mp3") {
+                do {
+                    DamageSoundPlayer = try AVAudioPlayer(contentsOf: DamageSoundSoundURL)
+                    DamageSoundPlayer?.volume = 1.0
+                    DamageSoundPlayer?.rate = 0.5
+                    DamageSoundPlayer?.delegate = self
+                    DamageSoundPlayer?.play()
+                } catch let error {
+                    print("Errore nella riproduzione dell'audio di danneggiamento: \(error.localizedDescription)")
+                    backgroundMusicPlayer.play()
+                }
+            } else {
+                print("File audio di danneggiamento non trovato.")
+                backgroundMusicPlayer.play()
+            }
+        }
+
+
     
     func goUnderground() {
         self.isUnderGround = true
@@ -272,12 +330,29 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
     }
     
     func startRotationAnimation() {
+        
         self.isRolling = true
         player.removeAllActions()
         
         player.run(SKAction.sequence([
             SKAction.group([
                 SKAction.animate(with: playerAnimationRotate, timePerFrame: 0.05),
+                SKAction.scale(to: 0.23, duration: 0.0)
+            ]),
+            SKAction.scale(to: 0.35, duration: 0.0),
+            SKAction.repeatForever(SKAction.animate(with: playerAnimationWalking, timePerFrame: 0.10))
+        ]))
+        
+        
+    }
+    
+    func startDamageAnimation() {
+        
+        player.removeAllActions()
+        
+        player.run(SKAction.sequence([
+            SKAction.group([
+                SKAction.animate(with: damageAnimation, timePerFrame: 0.08),
                 SKAction.scale(to: 0.23, duration: 0.0)
             ]),
             SKAction.scale(to: 0.35, duration: 0.0),
@@ -311,6 +386,7 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
                 self.score += 1
                 scoreLabel.text = "Score: \(score)"
                 print("+1 Point!! Congrats. The update score:\(score)")
+                playCanDestroySound()
             }
             
             
@@ -319,6 +395,10 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
             else {
                     self.lives -= 1
                     livesLabel.text = "Lives: \(self.lives)"
+                
+                    playDamageSound()
+                    startDamageAnimation()
+                
                     if lives <= 0 {
                         print("GAMEOVER")
                         
@@ -348,11 +428,14 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
                 self.score += 1
                 scoreLabel.text = "Score: \(score)"
                 print("+1 Point!! Congrats. The update score:\(score)")
+                playCanDestroySound()
             }
             
             else {
                     self.lives -= 1
                     livesLabel.text = "Lives: \(self.lives)"
+                    playDamageSound()
+                    startDamageAnimation()
                     if lives <= 0 {
                         print("GAMEOVER")
                         
@@ -382,11 +465,14 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
                 self.score += 1
                 scoreLabel.text = "Score: \(score)"
                 print("+1 Point!! Congrats. The update score:\(score)")
+                playCanDestroySound()
             }
             
             else {
                     self.lives -= 1
                     livesLabel.text = "Lives: \(self.lives)"
+                    playDamageSound()
+                    startDamageAnimation()
                     if lives <= 0 {
                         print("GAMEOVER")
                         
@@ -415,6 +501,8 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
             else {
                     self.lives -= 1
                     livesLabel.text = "Lives: \(self.lives)"
+                    playDamageSound()
+                    startDamageAnimation()
                     if lives <= 0 {
                         print("GAMEOVER")
                         
@@ -442,6 +530,8 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
             else {
                     self.lives -= 1
                     livesLabel.text = "Lives: \(self.lives)"
+                    playDamageSound()
+                    startDamageAnimation()
                     if lives <= 0 {
                         print("GAMEOVER")
                         
@@ -515,36 +605,56 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
     }
     
 
-//    let obstacleTypes = ["cig1", "blueCan", "redCan", "yellowCan", "plasticBag1"]
-   
-    // RedCanSpawn
-     func spawnRedCanObstacles() {
-        // Logica per generare ostacoli a intervalli regolari
-        let obstacleRedCanTypes = ["redCan"]
-        let obstacleRedCan = SKSpriteNode(imageNamed: obstacleRedCanTypes.randomElement()!)
-        obstacleRedCan.position = CGPoint(x: frame.maxX, y: 150)
-        obstacleRedCan.physicsBody?.affectedByGravity = false
-        obstacleRedCan.physicsBody = SKPhysicsBody(rectangleOf: obstacleRedCan.size)
-        obstacleRedCan.physicsBody?.isDynamic = false
-        obstacleRedCan.physicsBody?.categoryBitMask = 2
-        obstacleRedCan.physicsBody?.contactTestBitMask = 1
-//        obstacleRedCan.physicsBody = SKPhysicsBody(texture: obstacleRedCan.texture!,size: obstacleRedCan.texture!.size())
+    func obstaclesSpawn() {
+     
+        let obstaclesData = [
+            ("redCan", "redCan"),
+            ("yellowCan", "yellowCan"),
+            ("blueCan", "blueCan"),
+            ("plasticBag1", "plasticBag"),
+            ("cig1", "cig")
+        ]
+
+       
+        let randomObstacleData = obstaclesData.randomElement()!
+
+       
+        let (obstacleType, obstacleName) = randomObstacleData
+
         
-        obstacleRedCan.name = "redCan"
-//         obstacles.append(obstacleRedCan)
+        let obstacle = SKSpriteNode(imageNamed: obstacleType)
+        obstacle.position = CGPoint(x: frame.maxX, y: 150)
+        obstacle.physicsBody?.affectedByGravity = false
+        obstacle.physicsBody = SKPhysicsBody(rectangleOf: obstacle.size)
+        obstacle.physicsBody?.isDynamic = false
+        obstacle.physicsBody?.categoryBitMask = 2
+        obstacle.physicsBody?.contactTestBitMask = 1
+        obstacle.name = obstacleName
+        obstacle.zPosition = 3
+        obstacle.setScale(0.30)
+
+        if obstacleName == "plasticBag" {
+            obstacle.run(SKAction.repeatForever(SKAction.animate(with: plasticBagAnimation, timePerFrame: 0.20)))
+        }
         
-        obstacleRedCan.zPosition = 3
+        if obstacleName == "cig" {
+            obstacle.run(SKAction.repeatForever(SKAction.animate(with: cigAnimation, timePerFrame: 0.15)))
+        }
         
-        obstacleRedCan.setScale(0.30)
         
-        
-        addChild(obstacleRedCan)
+       
+        addChild(obstacle)
+
         
         let moveAction = SKAction.moveBy(x: -frame.size.width, y: 0, duration: TimeInterval(4.2 / gameSpeed))
         let removeAction = SKAction.removeFromParent()
-        obstacleRedCan.run(SKAction.sequence([moveAction, removeAction]))
+        obstacle.run(SKAction.sequence([moveAction, removeAction]))
+
         
-        //Animation
+        let spawnDelay = SKAction.wait(forDuration: TimeInterval.random(in: 2...6))
+        run(spawnDelay) {
+            self.obstaclesSpawn()
+        }
         
         //redCanDestruction
         
@@ -555,56 +665,6 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
             redCanDestruction.append(textureRedCanDestruction.textureNamed(name))
         }
         
-        if player.frame.intersects(obstacleRedCan.frame){
-            obstacleRedCan.run(SKAction.sequence([
-                SKAction.group([
-                    
-                    SKAction.animate(with: redCanDestruction, timePerFrame: 0.1),
-                    SKAction.wait(forDuration: 0.000001),
-                    SKAction.scale(to: 0.45, duration: 0.0),
-                    SKAction.scaleX(by: 1, y: 0.90, duration: 0.5)
-                ])
-            ]))
-        }
-        
-        
-        //Spawn Delay
-        
-         let spawnDelayRed = SKAction.wait(forDuration: TimeInterval.random(in: 1...10))
-         run(spawnDelayRed) {
-             self.spawnRedCanObstacles()
-         }
-    }
-    
-    // YellowCanSpawn
-     func spawnYellowCanObstacles() {
-        // Logica per generare ostacoli a intervalli regolari
-        let obstacleYellowCanTypes = ["yellowCan"]
-        let obstacleYellowCan = SKSpriteNode(imageNamed: obstacleYellowCanTypes.randomElement()!)
-        obstacleYellowCan.position = CGPoint(x: frame.maxX, y: 150)
-        obstacleYellowCan.physicsBody?.affectedByGravity = false
-        obstacleYellowCan.physicsBody = SKPhysicsBody(rectangleOf: obstacleYellowCan.size)
-        obstacleYellowCan.physicsBody?.isDynamic = false
-        obstacleYellowCan.physicsBody?.categoryBitMask = 2
-        obstacleYellowCan.physicsBody?.contactTestBitMask = 1
-//        obstacleRedCan.physicsBody = SKPhysicsBody(texture: obstacleRedCan.texture!,size: obstacleRedCan.texture!.size())
-        
-        obstacleYellowCan.name = "yellowCan"
-//         obstacles.append(obstacleRedCan)
-        
-        obstacleYellowCan.zPosition = 3
-        
-        obstacleYellowCan.setScale(0.30)
-        
-        
-        addChild(obstacleYellowCan)
-        
-        let moveAction = SKAction.moveBy(x: -frame.size.width, y: 0, duration: TimeInterval(4.2 / gameSpeed))
-        let removeAction = SKAction.removeFromParent()
-        obstacleYellowCan.run(SKAction.sequence([moveAction, removeAction]))
-        
-        //Animation
-        
         //yellowCanDestruction
         
         let textureYellowCanDestruction = SKTextureAtlas(named: "yellowCanDestruction")
@@ -614,56 +674,7 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
             yellowCanDestruction.append(textureYellowCanDestruction.textureNamed(name))
         }
         
-        if player.frame.intersects(obstacleYellowCan.frame){
-            obstacleYellowCan.run(SKAction.sequence([
-                SKAction.group([
-                    
-                    SKAction.animate(with: yellowCanDestruction, timePerFrame: 0.1),
-                    SKAction.wait(forDuration: 0.000001),
-                    SKAction.scale(to: 0.45, duration: 0.0),
-                    SKAction.scaleX(by: 1, y: 0.90, duration: 0.5)
-                ])
-            ]))
-        }
-        
-         let spawnDelayYellow = SKAction.wait(forDuration: TimeInterval.random(in: 2...12))
-         run(spawnDelayYellow) {
-             self.spawnYellowCanObstacles()
-         }
-       
-         
-    }
-
-    // BlueCanSpawn
-     func spawnBlueCanObstacles() {
-        // Logica per generare ostacoli a intervalli regolari
-        let obstacleBlueCanTypes = ["blueCan"]
-        let obstacleBlueCan = SKSpriteNode(imageNamed: obstacleBlueCanTypes.randomElement()!)
-        obstacleBlueCan.position = CGPoint(x: frame.maxX, y: 150)
-        obstacleBlueCan.physicsBody?.affectedByGravity = false
-        obstacleBlueCan.physicsBody = SKPhysicsBody(rectangleOf: obstacleBlueCan.size)
-        obstacleBlueCan.physicsBody?.isDynamic = false
-         obstacleBlueCan.physicsBody?.categoryBitMask = 2
-        obstacleBlueCan.physicsBody?.contactTestBitMask = 1
-//        obstacleRedCan.physicsBody = SKPhysicsBody(texture: obstacleRedCan.texture!,size: obstacleRedCan.texture!.size())
-        
-        obstacleBlueCan.name = "blueCan"
-//         obstacles.append(obstacleRedCan)
-        
-        obstacleBlueCan.zPosition = 3
-        
-        obstacleBlueCan.setScale(0.30)
-        
-        
-        addChild(obstacleBlueCan)
-        
-        let moveAction = SKAction.moveBy(x: -frame.size.width, y: 0, duration: TimeInterval(4.2 / gameSpeed))
-        let removeAction = SKAction.removeFromParent()
-        obstacleBlueCan.run(SKAction.sequence([moveAction, removeAction]))
-        
-        //Animation
-        
-        //yellowCanDestruction
+        //blueCanDestruction
         
         let textureBlueCanDestruction = SKTextureAtlas(named: "blueCanDestruction")
         for i in 1..<textureBlueCanDestruction.textureNames.count {
@@ -672,57 +683,7 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
             blueCanDestruction.append(textureBlueCanDestruction.textureNamed(name))
         }
         
-        if player.frame.intersects(obstacleBlueCan.frame){
-            obstacleBlueCan.run(SKAction.sequence([
-                SKAction.group([
-                    
-                    SKAction.animate(with: blueCanDestruction, timePerFrame: 0.1),
-                    SKAction.wait(forDuration: 0.000001),
-                    SKAction.scale(to: 0.45, duration: 0.0),
-                    SKAction.scaleX(by: 1, y: 0.90, duration: 0.5)
-                ])
-            ]))
-        }
-        
-        
-        //Spawn Delay
-       
-         let spawnDelayBlue = SKAction.wait(forDuration: TimeInterval.random(in: 3...14))
-         run(spawnDelayBlue) {
-             self.spawnBlueCanObstacles()
-         }
-    }
-    
-    // PlasticBagCanSpawn
-     func spawnPlasticBagObstacles() {
-        // Logica per generare ostacoli a intervalli regolari
-        let obstaclePlasticBagTypes = ["plasticBag1"]
-        let obstaclePlasticBag = SKSpriteNode(imageNamed: obstaclePlasticBagTypes.randomElement()!)
-        obstaclePlasticBag.position = CGPoint(x: frame.maxX, y: 150)
-        obstaclePlasticBag.physicsBody?.affectedByGravity = false
-        obstaclePlasticBag.physicsBody = SKPhysicsBody(rectangleOf: obstaclePlasticBag.size)
-        obstaclePlasticBag.physicsBody?.isDynamic = false
-         obstaclePlasticBag.physicsBody?.categoryBitMask = 2
-        obstaclePlasticBag.physicsBody?.contactTestBitMask = 1
-//        obstacleRedCan.physicsBody = SKPhysicsBody(texture: obstacleRedCan.texture!,size: obstacleRedCan.texture!.size())
-        
-        obstaclePlasticBag.name = "plasticBag"
-//         obstacles.append(obstacleRedCan)
-        
-        obstaclePlasticBag.zPosition = 3
-        
-        obstaclePlasticBag.setScale(0.30)
-        
-        
-        addChild(obstaclePlasticBag)
-        
-        let moveAction = SKAction.moveBy(x: -frame.size.width, y: 0, duration: TimeInterval(4.2 / gameSpeed))
-        let removeAction = SKAction.removeFromParent()
-        obstaclePlasticBag.run(SKAction.sequence([moveAction, removeAction]))
-        
-        //Animation
-        
-        //plasticBagAnimation
+        //PlasticBag Animation
         
         let texturePlasticBag = SKTextureAtlas(named: "plasticAnimation")
         for i in 1..<texturePlasticBag.textureNames.count {
@@ -731,46 +692,7 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
             plasticBagAnimation.append(texturePlasticBag.textureNamed(name))
         }
         
-    obstaclePlasticBag.run(SKAction.repeatForever(SKAction.animate(with: plasticBagAnimation, timePerFrame: 0.20)))
-        
-       
-         let spawnDelayPlastic = SKAction.wait(forDuration: TimeInterval.random(in: 4...16))
-         run(spawnDelayPlastic) {
-             self.spawnPlasticBagObstacles()
-         }
-        
-    }
-    
-    // CigCanSpawn
-     func spawnCigObstacles() {
-        // Logica per generare ostacoli a intervalli regolari
-        let obstacleCigTypes = ["cig1"]
-        let obstacleCig = SKSpriteNode(imageNamed: obstacleCigTypes.randomElement()!)
-        obstacleCig.position = CGPoint(x: frame.maxX, y: 150)
-        obstacleCig.physicsBody?.affectedByGravity = false
-        obstacleCig.physicsBody = SKPhysicsBody(rectangleOf: obstacleCig.size)
-        obstacleCig.physicsBody?.isDynamic = false
-         obstacleCig.physicsBody?.categoryBitMask = 2
-        obstacleCig.physicsBody?.contactTestBitMask = 1
-//        obstacleRedCan.physicsBody = SKPhysicsBody(texture: obstacleRedCan.texture!,size: obstacleRedCan.texture!.size())
-        
-        obstacleCig.name = "cig"
-//         obstacles.append(obstacleRedCan)
-        
-        obstacleCig.zPosition = 3
-        
-        obstacleCig.setScale(0.30)
-        
-        
-        addChild(obstacleCig)
-        
-        let moveAction = SKAction.moveBy(x: -frame.size.width, y: 0, duration: TimeInterval(4.2 / gameSpeed))
-        let removeAction = SKAction.removeFromParent()
-        obstacleCig.run(SKAction.sequence([moveAction, removeAction]))
-        
-        //Animation
-        
-        //CigAnimation
+        // Cig Animation
         
         let textureCig = SKTextureAtlas(named: "cigAnimation")
         for i in 1..<textureCig.textureNames.count {
@@ -779,16 +701,7 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
             cigAnimation.append(textureCig.textureNamed(name))
         }
         
-    obstacleCig.run(SKAction.repeatForever(SKAction.animate(with: cigAnimation, timePerFrame: 0.15)))
-        
-       
-         let spawnDelayCig = SKAction.wait(forDuration: TimeInterval.random(in: 2...18))
-         run(spawnDelayCig) {
-             self.spawnCigObstacles()
-         }
-        
     }
-    
     
     func playerHit(node: SKNode){
         print("Player hit something with name: \(node.name ?? "unknown")")
@@ -809,10 +722,6 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
                     
                 }
             }
-            
-//            player.removeFromParent()
-//            gameOver()
-            
         }
     }
     
@@ -830,6 +739,7 @@ class GameScene: SKScene, ObservableObject, SKPhysicsContactDelegate{
             }
         }
     }
+    
     func isPaused() {
         
         isPausedG = true

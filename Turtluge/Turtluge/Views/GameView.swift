@@ -7,6 +7,8 @@
 
 import SwiftUI
 import SpriteKit
+import AVFoundation
+
 
 struct GameView: View {
     @StateObject private var game = GameScene()
@@ -25,6 +27,12 @@ struct GameView: View {
             if game.isGameOver{
 //            NavigationLink(destination: GameOverView(), label: { Text("GAME-OVER")})
                 GameOverView()
+                
+//                    .onAppear {
+//                                            game.playGameOverSound()
+//                                        }
+
+                
         }
             
             if game.isPausedG{
