@@ -47,5 +47,7 @@ Turtluge is a collaborative project developed by a dedicated team:
 - Alessandro Ricci
   **Game Developer** (https://github.com/itsalessandroricci)
 - Giuseppe Gargiulo
+  **Designer** (https://www.linkedin.com/in/giuseppe-gargiulo-302141295/)
 - Federica Bovenzi
+  **Designer** (https://www.linkedin.com/in/federica-bovenzi-931705218/)
 
